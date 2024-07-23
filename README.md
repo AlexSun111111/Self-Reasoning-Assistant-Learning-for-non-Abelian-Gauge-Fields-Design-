@@ -17,9 +17,117 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-To run the simulation, use the following command. Ensure the input file is formatted correctly as specified in `data_format.md`.
-```bash
-python simulate.py --input data/input.json
+
+### Text-to-Image Generation
+For easier training, you can provide text strings directly instead of calculating text encodings in advance. However, for scalability, it's advisable to precompute the text embeddings and masks.
+
+#### Training
+```python
+import torch
+from imagen_pytorch import Unet, Imagen
+
+unet1 = Unet(
+    dim = 32,
+    cond_dim = 512,
+    dim_mults = (1, 2, 4, 8),
+    num_resnet_blocks = 3,
+    layer_attns = (False, True, True, True),
+    layer_cross_attns = (False, True, True, True)
+)
+
+unet2 = Unet(
+    dim = 32,
+    cond_dim = 512,
+    dim_mults = (1, 2, 4, 8),
+    num_resnet_blocks = (2, 4, 8, 8),
+    layer_attns = (False, False, False, True),
+    layer_cross_attns = (False, False, False, True)
+)
+
+imagen = Imagen(
+    unets = (unet1, unet2),
+    image_sizes = (64, 256),
+    timesteps = 1000,
+    cond_drop_prob = 0.1
+).cuda()
+
+# Mock images and text embeddings
+text_embeds = torch.randn(4, 256, 768).cuda()
+images = torch.randn(4, 3, 256, 256).cuda()
+
+for i in (1, 2):
+    loss = imagen(images, text_embeds = text_embeds, unet_number = i)
+    loss.backward()
+
+# Sampling images based on text embeddings
+images = imagen.sample(texts = [
+    'a whale breaching from afar',
+    'young girl blowing out candles on her birthday cake',
+    'fireworks with blue and green sparkles'
+], cond_scale = 3.)
+
+images.shape # (3, 3, 256, 256)
+```
+
+The number of textual captions must match the batch size of the images if you go this route. For example:
+
+```python
+texts = [
+    'a child screaming at finding a worm within a half-eaten apple',
+    'lizard running across the desert on two feet',
+    'waking up to a psychedelic landscape',
+    'seashells sparkling in the shallow waters'
+]
+
+images = torch.randn(4, 3, 256, 256).cuda()
+
+for i in (1, 2):
+    loss = imagen(images, texts = texts, unet_number = i)
+    loss.backward()
+```
+
+### Training with DataLoader
+You can use the Trainer to automatically train using DataLoader instances. Ensure your DataLoader returns either images (for unconditional training) or a tuple of ('images', 'text_embeds') for text-guided generation.
+
+#### Unconditional Training Example
+```python
+from imagen_pytorch import Unet, Imagen, ImagenTrainer
+from imagen_pytorch.data import Dataset
+
+unet = Unet(
+    dim = 32,
+    dim_mults = (1, 2, 4, 8),
+    num_resnet_blocks = 1,
+    layer_attns = (False, False, False, True),
+    layer_cross_attns = False
+)
+
+imagen = Imagen(
+    condition_on_text = False,
+    unets = unet,
+    image_sizes = 128,
+    timesteps = 1000
+)
+
+trainer = ImagenTrainer(
+    imagen = imagen,
+    split_valid_from_train = True
+).cuda()
+
+dataset = Dataset('/path/to/training/images', image_size = 128)
+trainer.add_train_dataset(dataset, batch_size = 16)
+
+for i in range(200000):
+    loss = trainer.train_step(unet_number = 1, max_batch_size = 4)
+    print(f'loss: {loss}')
+
+    if not (i % 50):
+        valid_loss = trainer.valid_step(unet_number = 1, max_batch_size = 4)
+        print(f'valid loss: {valid_loss}')
+
+    if not (i % 100) and trainer.is_main:
+        images = trainer.sample(batch_size = 1, return_pil_images = True)
+        images[0].save(f'./sample-{i // 100}.png')
 ```
 
 ## Code Structure
@@ -69,3 +177,4 @@ Thanks to the funding sources, contributors, and any research institutions invol
 - **General Structure**: Kept the structure consistent, ensuring all sections are clearly defined and easy to follow.
 
 Ensure that the `Dataset Example (100 pairs)` file is well-documented and provide the necessary details about the dataset, including how it is formatted, any preprocessing steps, and examples of the data pairs. This will help users understand how to use the dataset effectively in their own experiments.
+
