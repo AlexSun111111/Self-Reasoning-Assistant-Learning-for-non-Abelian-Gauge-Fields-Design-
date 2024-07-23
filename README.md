@@ -29,7 +29,7 @@ Overview of the codebase:
 - `data/`: Dataset directory, includes sample data and format specifications.
 
 ## Dataset
-Details on the datasets used, including access and preprocessing steps, can be found in the `data/README.md` file. For a detailed example, refer to `Dataset Example (100 pairs)`.
+Details on the datasets used, including access and preprocessing steps, can be found in `Dataset Example (100 pairs)`.
 
 ## Results
 Summary of the results with an emphasis on the effectiveness of the proposed framework. Refer to our paper for further look.
