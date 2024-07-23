@@ -1,1 +1,0 @@
-A non-Abelian circuit composed of a C3 symmetric structure and coupling elements represented by md0, m_d0, md1, m_d2 and m_d3. The transfer function coefficient vector is [3.51e-17 + 3.65e-17i, 0.0166 - 0.0757i, 0.0979 - 0.0294i], and coupling is achieved using 2.7nF capacitors and 1000 ohm resistors. The node connection components are 6C and 1.5R.
