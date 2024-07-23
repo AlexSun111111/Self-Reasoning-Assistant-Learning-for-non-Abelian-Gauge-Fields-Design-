@@ -1,4 +1,3 @@
-
 # Self-Reasoning Assistant Learning for Non-Abelian Gauge Fields
 
 ## Abstract
@@ -10,8 +9,8 @@ Non-Abelian gauge fields play a critical role in various areas of theoretical ph
 ## Installation
 Clone the repository and install the required packages:
 ```bash
-git clone https://github.com/<your-username>/<repository-name>.git
-cd <repository-name>
+git clone https://github.com/AlexSun111111/Self-Reasoning-Assistant-Learning-for-non-Abelian-Gauge-Fields-Design-.git
+cd Self-Reasoning-Assistant-Learning-for-non-Abelian-Gauge-Fields-Design-
 pip install -r requirements.txt
 ```
 
@@ -28,23 +27,29 @@ Overview of the codebase:
 - `data/`: Dataset directory, includes sample data and format specifications.
 
 ## Dataset
-Details on the datasets used, including access and preprocessing steps. Refer to `data/README.md` for more details.
+Details on the datasets used, including access and preprocessing steps, can be found in the `data/README.md` file. For a detailed example, refer to `Dataset Example (100 pairs)`.
 
 ## Results
-Summary of the results with an emphasis on the effectiveness of the proposed framework. Refer to `results/summary.md` for detailed results and visualizations.
+Summary of the results with an emphasis on the effectiveness of the proposed framework. Refer to our paper for further look.
 
 ## Contributions
 List of contributors:
-- Name 1, Affiliation
-- Name 2, Affiliation
+- Jinyang Sun, Portland Institute, Nanjing University of Posts and Telecommunications, Nanjing 210003, China
+- Xi Chen, College of Integrated Circuit Science and Engineering, Nanjing University of Posts and Telecommunications, Nanjing 210003, China
+- Xiumei Wang, College of Electronic and Optical Engineering, Nanjing University of Posts and Telecommunications, Nanjing 210003, China
+- Dandan Zhu, Institute of AI Education, East China Normal University, Shanghai 200333, China
+- Xingping Zhou, Institute of Quantum Information and Technology, Nanjing University of Posts and Telecommunications, Nanjing 210003, China
+
+† ddzhu@mail.ecnu.edu.cn  
+‡ zxp@njupt.edu.cn  
 
 ## Citing
 If you use this project or the associated paper in your research, please cite it as follows:
 ```bibtex
-@article{YourLastName2024,
-  title={Your Paper Title},
-  author={Your Name and Collaborator Names},
-  journal={Nature},
+@article{
+  title={Self-Reasoning Assistant Learning for Non-Abelian Gauge Fields},
+  author={Jinyang Sun, Xi Chen, Xiumei Wang, Dandan Zhu and Xingping Zhou},
+  journal={xx},
   year={2024},
   volume={xx},
   pages={xx-xx}
@@ -57,5 +62,8 @@ Specify the license under which the project is released.
 ## Acknowledgments
 Thanks to the funding sources, contributors, and any research institutions involved.
 
-## Contact
-For further inquiries, contact [zxp@njupt.edu.cn](mailto:your.email@example.com).
+### Explanation:
+- **Dataset Section**: Added a reference to the `Dataset Example (100 pairs)` for detailed information about the dataset.
+- **General Structure**: Kept the structure consistent, ensuring all sections are clearly defined and easy to follow.
+
+Ensure that the `Dataset Example (100 pairs)` file is well-documented and provide the necessary details about the dataset, including how it is formatted, any preprocessing steps, and examples of the data pairs. This will help users understand how to use the dataset effectively in their own experiments.
