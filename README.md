@@ -6,7 +6,7 @@ This project develops a novel self-reasoning assistant learning framework to gen
 ## Introduction
 Non-Abelian gauge fields play a critical role in various areas of theoretical physics. This project introduces an innovative computational framework leveraging self-reasoning assistant learning to design and simulate circuits capable of manifesting non-Abelian gauge fields, facilitating experimental investigations into their properties.
 
-![image](https://github.com/AlexSun111111/Self-Reasoning-Assistant-Learning-for-non-Abelian-Gauge-Fields-Design-/blob/main/1.png)
+![image](https://github.com/AlexSun111111/Self-Reasoning-Assistant-Learning-for-non-Abelian-Gauge-Fields-Design-/blob/main/Logo/README.png)
 
 ## Installation
 Clone the repository and install the required packages:
